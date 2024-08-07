@@ -1,30 +1,28 @@
+<script setup>
+import AuthPage from "./components/AuthPage.vue";
+import ChatsPage from "./components/ChatsPage.vue";
+</script>
+
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view/>
+  <AuthPage v-if="!user" @onAuth="handleAuth" />
+  <ChatsPage
+    v-else
+    v-bind:username="user.username"
+    v-bind:secret="user.secret"
+  />
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-nav {
-  padding: 30px;
-}
-
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>
+<script>
+export default {
+  data() {
+    return {
+      user: undefined,
+    };
+  },
+  methods: {
+    handleAuth(user) {
+      this.user = user;
+    },
+  },
+};
+</script>

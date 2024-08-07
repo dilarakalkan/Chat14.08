@@ -1,0 +1,1 @@
+Welcome <strong class="user-name">{{ $currentUser.name }}</strong>

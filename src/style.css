@@ -1,0 +1,95 @@
+* {
+  box-sizing: border-box; /* Tüm elementlerin içerik ve kenar boşluklarını kutu modeline dahil eder */
+  font-family: 'Avenir', Helvetica, Arial, sans-serif; /* Yazı tipi ailesini ayarlar */
+  margin: 0; /* Tüm elementlerin dış kenar boşluklarını sıfırlar */
+  padding: 0; /* Tüm elementlerin iç kenar boşluklarını sıfırlar */
+ 
+}
+
+body {
+  background: linear-gradient(
+    180deg, /* Dikey doğrultuda gradyan */
+    rgba(117, 84, 160, 1) 7%, /* İlk renk ve konum */
+    rgba(117, 84, 160, 1) 17%, /* İkinci renk ve konum */
+    rgba(106, 95, 168, 1) 29%, /* Üçüncü renk ve konum */
+    rgba(99, 103, 174, 1) 44%, /* Dördüncü renk ve konum */
+    rgba(87, 116, 184, 1) 66%, /* Beşinci renk ve konum */
+    rgba(70, 135, 198, 1) 83%, /* Altıncı renk ve konum */
+    rgba(44, 163, 219, 1) 96%, /* Yedinci renk ve konum */
+    rgba(22, 188, 237, 1) 100%, /* Sekizinci renk ve konum */
+    rgba(0, 212, 255, 1) 100% /* Son renk ve konum */
+  );
+  display: flex; /* Esnek kutu modeli kullanarak düzeni sağlar */
+  justify-content: center; /* İçeriği yatayda ortalar */
+  align-items: center; /* İçeriği dikeyde ortalar */
+  height: 100vh; /* Yüksekliği tam ekran yapar */
+  width: 100%; /* Genişliği tam ekran yapar */
+  
+
+  overflow: hidden; /* Taşan içeriği gizler */
+}
+
+.container {
+  background: white; /* Arka plan rengini beyaz yapar */
+  padding: 0; /* İç kenar boşluklarını ayarlar. Bu değeri ihtiyacınıza göre değiştirebilirsiniz. */
+  border-radius: 10px; /* Köşeleri yuvarlar */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Gölge efekti ekler */
+  width: 100%; /* Genişliği tam ekran yapar */
+  height: 100%; /* Yüksekliği tam ekran yapar */
+  display: flex; /* Esnek kutu modeli kullanarak düzeni sağlar */
+  flex-direction: column; /* Çocuk elemanları dikeyde hizalar */
+  justify-content: center; /* İçeriği dikeyde ortalar */
+  align-items: center; /* İçeriği yatayda ortalar */
+  margin: 0; /* Kenar boşluklarını sıfırlar */
+}
+
+.title {
+  text-align: center; /* Metni ortalar */
+  font-size: 24px; /* Yazı boyutunu ayarlar */
+  margin-bottom: 1rem; /* Alt kenar boşluğu ekler */
+  color: #333; /* Yazı rengini koyu gri yapar */
+}
+
+input {
+  width: 100%; /* Genişliği tam yapar */
+  margin-top: 10px; /* Üst kenar boşluğu ekler */
+  padding: 12px; /* İç kenar boşluğu ekler */
+  border: 1px solid #ddd; /* Kenar çizgisini ayarlar */
+  border-radius: 6px; /* Köşeleri yuvarlar */
+  outline: none; /* Tıklanınca mavi kenarlığı kaldırır */
+  font-size: 14px; /* Yazı boyutunu ayarlar */
+}
+
+button {
+  margin-top: 20px; /* Üst kenar boşluğu ekler */
+  width: 100%; /* Genişliği tam yapar */
+  padding: 12px; /* İç kenar boşluğu ekler */
+  background-color: #3498db; /* Arka plan rengini mavi yapar */
+  color: white; /* Yazı rengini beyaz yapar */
+  border: none; /* Kenar çizgisini kaldırır */
+  border-radius: 6px; /* Köşeleri yuvarlar */
+  cursor: pointer; /* Fare imlecini işaretçi yapar */
+  font-size: 16px; /* Yazı boyutunu ayarlar */
+}
+
+button:hover {
+  background-color: #2980b9; /* Fare üzerine gelince arka plan rengini değiştirir */
+}
+
+form {
+  display: flex; /* Esnek kutu modeli kullanarak düzeni sağlar */
+  flex-direction: column; /* Çocuk elemanları dikeyde hizalar */
+  width: 100%; /* Genişliği tam yapar */
+}
+
+.switch-link {
+  text-align: center; /* Metni ortalar */
+  margin-top: 10px; /* Üst kenar boşluğu ekler */
+  color: #3498db; /* Yazı rengini mavi yapar */
+  cursor: pointer; /* Fare imlecini işaretçi yapar */
+  font-size: 14px; /* Yazı boyutunu ayarlar */
+}
+
+.switch-link:hover {
+  text-decoration: underline; /* Fare üzerine gelince altını çizer */
+}
