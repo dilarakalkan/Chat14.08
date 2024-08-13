@@ -14,7 +14,8 @@
   </template>
   
   <script>
-  import { loginRest } from "../../components/api.js"; // Doğru import ifadesi
+  import { loginRest } from "../../components/api.js"; 
+
   
   export default {
     data() {
@@ -58,4 +59,3 @@
     text-align: center;
   }
   </style>
-  
