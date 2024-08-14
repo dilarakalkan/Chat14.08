@@ -48,7 +48,7 @@ export default {
   methods: {
     connectToWebSocket() {
       this.ws = new WebSocket('ws://localhost:8085/ws');
-      
+      pa
       this.ws.onmessage = (event) => {
         const message = JSON.parse(event.data);
         const chat = this.chats.find(chat => chat.id === message.chatId);

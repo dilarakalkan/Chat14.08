@@ -15,7 +15,7 @@ const routes = [
   { 
     path: '/auth', name: 'Auth', component: AuthPage,
     children: [
-      { path: 'login', name: 'Login', component: Login },
+      { path: '/login', name: 'Login', component: Login },
       { path: 'register', name: 'Register', component: Register }
     ]
   },
@@ -32,11 +32,11 @@ const router = createRouter({
 
 // Route Guard ekleme
 router.beforeEach((to, from, next) => {
-  const isAuthenticated = !!localStorage.getItem('user-token'); // Örnek olarak token kontrolü
+  const isAuthenticated = !!localStorage.getItem('user-token'); // token kontrol
   if (to.matched.some(record => record.meta.requiresAuth) && !isAuthenticated) {
     next({ name: 'Login' }); // Giriş yapılmamışsa Login sayfasına yönlendir
   } else {
-    next(); // Giriş yapılmışsa yönlendirmeyi devam ettir
+    next(); // Giriş yapılmışsa yönlendir
   }
 });
 

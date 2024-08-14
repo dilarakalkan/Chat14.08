@@ -35,6 +35,7 @@
 
 <script>
 import { loginRest, signupRest } from "./api.js"; 
+import axios from 'axios';
 
 export default {
   data() {
@@ -55,7 +56,10 @@ export default {
     },
     async login() {
       try {
-        const response = await loginRest(this.loginUsername, this.loginPassword);
+        const response = await axios.post('http://localhost:8083/login', {
+        username: this.loginUsername,
+        password: this.loginPassword
+      });
         console.log('Login successful', response.data);
         this.$emit("onAuth", { ...response.data, secret: this.loginPassword });
       } catch (error) {
