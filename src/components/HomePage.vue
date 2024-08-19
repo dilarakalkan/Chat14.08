@@ -32,7 +32,7 @@ export default {
       // Burada kimlik doğrulama işlemini gerçekleştirin
       // Örneğin, kimlik doğrulama başarılı olduğunda:
       if (username.value === 'user' && password.value === 'pass') {
-        router.push({ name: 'HomePage' });
+        router.push({ name: 'ChatsPage' });
       } else {
         alert('Invalid credentials');
       }

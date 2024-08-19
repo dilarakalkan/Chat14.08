@@ -3,7 +3,6 @@
     <Navbar />
     <div class="content-container">
       <Sidebar v-if="user" />
-<!--sidebarı sadece login girildiğinde gösterilmesi için v-if="user" ekledim-->
       <div class="main-content">
         <AuthPage v-if="!user" @onAuth="handleAuth" />
         <ChatsPage v-else :username="user.username" :secret="user.secret" />
@@ -13,17 +12,26 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import AuthPage from './components/AuthPage.vue';
 import ChatsPage from './components/ChatsPage.vue';
 import Sidebar from './components/Sidebar.vue';
 import Navbar from './components/Navbar.vue';
 
-
 const user = ref(null);
+
+// Sayfa yenilendiğinde kullanıcının oturum bilgilerini kontrol edin
+onMounted(() => {
+  const storedUser = JSON.parse(localStorage.getItem('user'));
+  if (storedUser) {
+    user.value = storedUser;
+  }
+});
 
 function handleAuth(newUser) {
   user.value = newUser;
+  // Kullanıcı oturum bilgilerini localStorage'a kaydedin
+  localStorage.setItem('user', JSON.stringify(newUser));
 }
 </script>
 

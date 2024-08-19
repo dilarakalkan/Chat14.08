@@ -1,8 +1,8 @@
+// index.js dosyanız
 import { createRouter, createWebHistory } from 'vue-router';
-import HomePage from '@/views/HomePage.vue';  
+import HomePage from '@/components/HomePage.vue';
 import ChatsPage from '@/components/ChatsPage.vue';
 import AuthPage from '@/components/AuthPage.vue';
-import Login from '@/views/auth/Login.vue';
 import Register from '@/views/auth/Register.vue';
 import AboutPage from '@/views/AboutPage.vue';
 import TeamPage from '@/views/TeamPage.vue';
@@ -11,13 +11,11 @@ import SettingsPage from '@/views/SettingsPage.vue';
 
 const routes = [
   { path: '/', name: 'Home', component: HomePage },
-  { path: '/chats', name: 'Chats', component: ChatsPage, meta: { requiresAuth: true } },
-  { 
-    path: '/auth', name: 'Auth', component: AuthPage,
+  { path: '/chats', name: 'ChatsPage', component: ChatsPage },
+  { path: '/auth', name: 'Auth', component: AuthPage, 
     children: [
-      { path: '/login', name: 'Login', component: Login },
       { path: 'register', name: 'Register', component: Register }
-    ]
+    ] 
   },
   { path: '/about', name: 'About', component: AboutPage },
   { path: '/team', name: 'Team', component: TeamPage },
@@ -30,14 +28,5 @@ const router = createRouter({
   routes
 });
 
-// Route Guard ekleme
-router.beforeEach((to, from, next) => {
-  const isAuthenticated = !!localStorage.getItem('user-token'); // token kontrol
-  if (to.matched.some(record => record.meta.requiresAuth) && !isAuthenticated) {
-    next({ name: 'Login' }); // Giriş yapılmamışsa Login sayfasına yönlendir
-  } else {
-    next(); // Giriş yapılmışsa yönlendir
-  }
-});
-
+// Burada router'ı varsayılan olarak dışa aktarmalısınız
 export default router;

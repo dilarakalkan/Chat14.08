@@ -30,7 +30,7 @@ export default {
   },
   data() {
     return {
-      ws: null,
+      // ws: null, // WebSocket bağlantısı şimdilik devre dışı
       text: '',
       messages: [],
       chats: [
@@ -43,26 +43,26 @@ export default {
     };
   },
   created() {
-    this.connectToWebSocket();
+    // this.connectToWebSocket(); // WebSocket bağlantısını şimdilik devre dışı
   },
   methods: {
     connectToWebSocket() {
-      this.ws = new WebSocket('ws://localhost:8085/ws');
-      pa
-      this.ws.onmessage = (event) => {
-        const message = JSON.parse(event.data);
-        const chat = this.chats.find(chat => chat.id === message.chatId);
-        if (chat) {
-          chat.messages.push(message);
-          if (chat.id === this.selectedChatId) {
-            this.messages.push(message);
-          }
-        }
-      };
+      // WebSocket bağlantısını geçici olarak yorum satırına alıyoruz
+      // this.ws = new WebSocket('ws://localhost:8085/ws');
+      // this.ws.onmessage = (event) => {
+      //   const message = JSON.parse(event.data);
+      //   const chat = this.chats.find(chat => chat.id === message.chatId);
+      //   if (chat) {
+      //     chat.messages.push(message);
+      //     if (chat.id === this.selectedChatId) {
+      //       this.messages.push(message);
+      //     }
+      //   }
+      // };
 
-      this.ws.onerror = (error) => {
-        console.error('WebSocket Error: ', error);
-      };
+      // this.ws.onerror = (error) => {
+      //   console.error('WebSocket Error: ', error);
+      // };
     },
     onSubmit() {
       if (this.text !== '' && this.selectedChatId) {
@@ -71,7 +71,7 @@ export default {
           content: this.text,
           chatId: this.selectedChatId, // chatId'yi ekledik
         };
-        this.ws.send(JSON.stringify(chatMessage));
+        // this.ws.send(JSON.stringify(chatMessage)); // Mesaj gönderme şimdilik devre dışı
         this.text = '';
       }
     },
@@ -82,46 +82,9 @@ export default {
     },
   },
   beforeDestroy() {
-    if (this.ws) {
-      this.ws.close();
-    }
+    // if (this.ws) {
+    //   this.ws.close();
+    // }
   },
 };
 </script>
-
-<style scoped>
-.chat-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-}
-
-.chat-list {
-  width: 100%;
-  max-width: 600px;
-  margin-bottom: 10px;
-}
-
-.chat-box {
-  width: 100%;
-  max-width: 600px;
-  height: 300px;
-  overflow-y: auto;
-  border: 1px solid #ddd;
-  margin-bottom: 10px;
-}
-
-input {
-  width: 100%;
-  max-width: 600px;
-  padding: 10px;
-  margin-bottom: 10px;
-}
-
-button {
-  padding: 10px 20px;
-  cursor: pointer;
-}
-</style>

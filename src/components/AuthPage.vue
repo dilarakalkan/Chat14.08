@@ -34,15 +34,21 @@
 </template>
 
 <script>
-import { loginRest, signupRest } from "./api.js"; 
 import axios from 'axios';
+import { useRouter } from 'vue-router';
+
 
 export default {
+  setup() {
+    const router = useRouter();
+    return { router };
+  },
+  
   data() {
     return {
-      isSignUp: false, // Başlangıçta login formu gösterilir
+      isSignUp: false,
       loginUsername: "",
-      loginPassword: "",
+      loginPassword: "",  // Şifre burada tutulur
       signupUsername: "",
       signupPassword: "",
       signupEmail: "",
@@ -56,27 +62,35 @@ export default {
     },
     async login() {
       try {
-        const response = await axios.post('http://localhost:8083/login', {
-        username: this.loginUsername,
-        password: this.loginPassword
-      });
-        console.log('Login successful', response.data);
-        this.$emit("onAuth", { ...response.data, secret: this.loginPassword });
-      } catch (error) {
-        console.log("Login error", error);
-      }
+
+    const response = await axios.post('http://localhost:8083/auth/login', {
+      username: this.loginUsername,
+      password: this.loginPassword
+    });
+
+    
+    if (response.status === 200) {
+      // Başarılı giriş, yönlendirme yapılacak
+      this.$router.push('/'); // Yönlendirme işlemi
+    }
+
+    
+  } catch (error) {
+      console.log("Login error", error);
+      // Hata mesajını ekranda gösterme veya kullanıcıya bildirme
+      alert("Giriş işlemi başarısız. Lütfen kullanıcı adı ve şifrenizi kontrol edin.");
+  }
     },
     async signup() {
       try {
-        const response = await signupRest(
-          this.signupUsername,
-          this.signupPassword,
-          this.signupEmail,
-          this.signupFirstName,
-          this.signupLastName
-        );
+        const response = await axios.post('http://localhost:8083/auth/signup', {
+          username: this.signupUsername,
+          password: this.signupPassword,
+          email: this.signupEmail,
+          firstName: this.signupFirstName,
+          lastName: this.signupLastName
+        });
         console.log('Signup successful', response.data);
-        this.$emit("onAuth", { ...response.data, secret: this.signupPassword });
       } catch (error) {
         console.log("Sign up error", error);
       }
@@ -84,7 +98,6 @@ export default {
   },
 };
 </script>
-
 <style scoped>
 .login-page {
   display: flex;
