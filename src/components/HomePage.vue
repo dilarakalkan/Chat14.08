@@ -30,7 +30,7 @@ export default {
 
     function login() {
       // Burada kimlik doğrulama işlemini gerçekleştirin
-      // Örneğin, kimlik doğrulama başarılı olduğunda:
+      // kimlik doğrulama başarılı olduğunda
       if (username.value === 'user' && password.value === 'pass') {
         router.push({ name: 'ChatsPage' });
       } else {

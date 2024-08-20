@@ -48,7 +48,7 @@ export default {
     return {
       isSignUp: false,
       loginUsername: "",
-      loginPassword: "",  // Şifre burada tutulur
+      loginPassword: "",  
       signupUsername: "",
       signupPassword: "",
       signupEmail: "",
@@ -70,8 +70,8 @@ export default {
 
     
     if (response.status === 200) {
-      // Başarılı giriş, yönlendirme yapılacak
-      this.$router.push('/'); // Yönlendirme işlemi
+      // Başarılı giriş, yönlendirme yapılsın
+      this.$router.push('/chats'); // Yönlendirme işlemi
     }
 
     
