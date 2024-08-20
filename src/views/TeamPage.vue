@@ -12,6 +12,6 @@
   </script>
   
   <style scoped>
-  /* Sayfaya özgü stiller buraya eklenebilir */
+
   </style>
   

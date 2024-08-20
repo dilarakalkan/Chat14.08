@@ -1,38 +1,36 @@
 <template>
   <div id="app" class="app-container">
-    <Navbar />
+    <Navbar v-if="isAuthenticated" class="navbar" />
     <div class="content-container">
-      <Sidebar v-if="user" />
+      <Sidebar v-if="user" class="sidebar" />
       <div class="main-content">
-        <AuthPage v-if="!user" @onAuth="handleAuth" />
-        <ChatsPage v-else :username="user.username" :secret="user.secret" />
+        <router-view />
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
-import AuthPage from './components/AuthPage.vue';
-import ChatsPage from './components/ChatsPage.vue';
+import { ref,computed, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
 import Sidebar from './components/Sidebar.vue';
 import Navbar from './components/Navbar.vue';
 
 const user = ref(null);
+const router = useRouter();
+const isAuthenticated = computed(() => !!user.value);
 
 // Sayfa yenilendiğinde kullanıcının oturum bilgilerini kontrol edin
 onMounted(() => {
-  const storedUser = JSON.parse(localStorage.getItem('user'));
+  const storedUser = localStorage.getItem('user');
   if (storedUser) {
     user.value = storedUser;
+  } else {
+    router.push('/auth');
   }
 });
 
-function handleAuth(newUser) {
-  user.value = newUser;
-  // Kullanıcı oturum bilgilerini localStorage'a kaydedin
-  localStorage.setItem('user', JSON.stringify(newUser));
-}
+
 </script>
 
 <style scoped>

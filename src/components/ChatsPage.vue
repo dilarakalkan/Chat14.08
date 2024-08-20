@@ -1,8 +1,9 @@
 <template>
+  <q-page>
   <div class="app-container">
     <div class="container" style="width:100% !important;background-color: ">
       <div class="row" style="width:100%">
-      
+      asdsad
         <!-- Sağ Konteyner - Chat Window -->
         <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
           <PrettyChatWindow
@@ -15,6 +16,8 @@
       </div>
     </div>
   </div>
+  <button @click="logout">cıkıs yap</button>
+  </q-page>
 </template>
 
 <script>
@@ -41,6 +44,10 @@ export default {
     },
   },
   methods: {
+    logout(){
+      localStorage.removeItem("user")
+      this.$router.go("/auth")
+    },
     goToAuthPage() {
       this.$router.push({ name: 'Auth' });
     },

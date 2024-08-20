@@ -57,6 +57,9 @@ export default {
     };
   },
   methods: {
+   handleAuth(token) {
+  localStorage.setItem('user', token);
+},
     toggleForm() {
       this.isSignUp = !this.isSignUp;
     },
@@ -68,10 +71,12 @@ export default {
       password: this.loginPassword
     });
 
-    
     if (response.status === 200) {
       // Başarılı giriş, yönlendirme yapılsın
-      this.$router.push('/chats'); // Yönlendirme işlemi
+      this.handleAuth(response)
+      this.$router.go("/chats")
+      //this.$router.push('/chats'); // Yönlendirme işlemi
+     
     }
 
     
