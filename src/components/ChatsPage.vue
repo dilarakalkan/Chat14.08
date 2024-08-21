@@ -6,11 +6,15 @@
         </div>
         <form @submit.prevent="sendMessage">
           <input v-model="message" placeholder="Type your message..." />
-          <button type="submit">Send</button>
+          <button type="submit">Send </button>  
+          <q-btn label="quasarbtn" color="red" ></q-btn>
           <button type="button" @click="disconnect">Disconnect</button>
+          <button type="button" @click="logout">çıkış</button>
+        
         </form>
       </div>
     </div>
+    
   </q-page>
 </template>
 
@@ -36,7 +40,11 @@ const connect = () => {
     });
   });
 };
-
+const logout = ()=>{
+  localStorage.removeItem("user")
+  localStorage.removeItem("user-token")
+  router.go("/auth")
+}
 const disconnect = () => {
   if (stompClient.value) {
     stompClient.value.disconnect();
