@@ -6,6 +6,7 @@ import AboutPage from '@/views/AboutPage.vue';
 import TeamPage from '@/views/TeamPage.vue';
 import ContactPage from '@/views/ContactPage.vue';
 import SettingsPage from '@/views/SettingsPage.vue';
+import WebSocket from '../components/WebSocket.vue';
 
 const routes = [
   { path: '/', name: 'Home', component: HomePage },
@@ -27,6 +28,7 @@ const routes = [
   { path: '/about', name: 'About', component: AboutPage, meta: { requiresAuth: true } },
   { path: '/team', name: 'Team', component: TeamPage, meta: { requiresAuth: true } },
   { path: '/contact', name: 'Contact', component: ContactPage, meta: { requiresAuth: true } },
+  { path: '/websocket', name: 'WebSocket', component: WebSocket, meta: { requiresAuth: true } },
   { path: '/settings', name: 'Settings', component: SettingsPage, meta: { requiresAuth: true } }
 ];
 

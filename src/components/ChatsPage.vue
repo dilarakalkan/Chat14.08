@@ -1,62 +1,74 @@
 <template>
   <q-page>
-  <div class="app-container">
-    <div class="container" style="width:100% !important;background-color: ">
-      <div class="row" style="width:100%">
-        <!-- Sağ Konteyner - Chat Window -->
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-          <PrettyChatWindow
-            :projectId="projectId"
-            :username="username"
-            :secret="secret"
-            class="chat-window"
-          />
+    <div class="app-container">
+      <div class="chat-window">
+        <div id="chat" class="messages">
         </div>
+        <form @submit.prevent="sendMessage">
+          <input v-model="message" placeholder="Type your message..." />
+          <button type="submit">Send</button>
+          <button type="button" @click="disconnect">Disconnect</button>
+        </form>
       </div>
     </div>
-  </div>
-  <button @click="logout">cıkıs yap</button>
   </q-page>
 </template>
 
-<script>
-import { PrettyChatWindow } from "react-chat-engine-pretty";
-import { applyReactInVue } from "veaury";
-import ChatBox from '@/components/ChatBox.vue';
+<script setup>
+import { ref, onMounted, onBeforeUnmount } from 'vue';
+import SockJS from 'sockjs-client';
+import { Stomp } from '@stomp/stompjs';
+import { useRouter } from 'vue-router';
 
-export default {
-  setup() {
-   
-  },
-  
-  components: {
-    PrettyChatWindow: applyReactInVue(PrettyChatWindow),
-  },
-  props: {
-    username: {
-      type: String,
-      required: true,
-    },
-    secret: {
-      type: String,
-      required: true,
-    },
-  },
-  methods: {
-    logout(){
-      localStorage.removeItem("user")
-      this.$router.go("/auth")
-    },
-    goToAuthPage() {
-      this.$router.push({ name: 'Auth' });
-    },
-    selectChat(chatId) {
-      this.selectedChatId = chatId;
-      // Seçilen sohbete göre işlem yapabilirsiniz.
-      // Örneğin, PrettyChatWindow'a farklı parametreler gönderebilirsiniz.
-    }
+const stompClient = ref(null);
+const message = ref('');
+const router = useRouter();
+
+const connect = () => {
+  const socket = new SockJS('http://localhost:8083/websocket');
+
+  stompClient.value = Stomp.over(socket);
+
+  stompClient.value.connect({}, (frame) => {
+    console.log('Connected: ' + frame);
+    stompClient.value.subscribe('/topic/chat', (message) => {
+      showMessage(JSON.parse(message.body).content);
+    });
+  });
+};
+
+const disconnect = () => {
+  if (stompClient.value) {
+    stompClient.value.disconnect();
+  }
+  console.log('Disconnected');
+};
+
+const sendMessage = () => {
+  if (message.value && stompClient.value && stompClient.value.connected) {
+    stompClient.value.send('/app/chat', {}, JSON.stringify({ content: message.value }));
+    message.value = '';
+  } else {
+    console.error('WebSocket connection is not established.');
   }
 };
+
+const showMessage = (msg) => {
+  const chatDiv = document.getElementById('chat');
+  const p = document.createElement('p');
+  p.textContent = msg;
+  chatDiv.appendChild(p);
+  chatDiv.scrollTop = chatDiv.scrollHeight; // Yeni mesaj geldiğinde otomatik olarak en sona kaydır
+};
+
+onMounted(() => {
+  connect();
+});
+
+onBeforeUnmount(() => {
+  disconnect();
+});
+
 </script>
 
 <style scoped>
@@ -71,82 +83,55 @@ html, body {
   width: 100%;
   height: 100%;
   display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: stretch;
-}
-
-/* Kapsayıcı Alan */
-.container {
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  width: 800px; 
-  height: 500px; 
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: stretch;
-  min-width: 0; 
-  box-sizing: border-box; /* Padding ve border'ları içerik genişliğine dahil eder */
-}
-
-
-.sidebar {
-  background: #2c3e50;
-  color: white;
-  flex: 0 0 250px; /* Fixed width */
-  height: 100vh;
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  box-sizing: border-box; 
+  justify-content: center;
+  align-items: center;
 }
 
 .chat-window {
-  width: 100%;  /* Make the chat window take full width */
-  height: 500px; 
+  width: 400px;
+  height: 80vh; 
   background: #34495e;
   color: white;
   padding: 20px;
   border-radius: 10px;
-  margin-left: 20px; 
   display: flex;
   flex-direction: column;
   justify-content: flex-start; 
   align-items: flex-start;
-  overflow-y: auto;
-  height: 100%; 
   box-sizing: border-box;
 }
 
-.chat-window .emoji {
-  font-size: 14px; /* Emoji boyutunu artırdım */
+.messages {
+  flex-grow: 1;
+  overflow-y: auto;
+  width: 100%;
+  background-color: #2c3e50;
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 10px;
 }
 
-.title {
-  text-align: center;
-  font-size: 24px;
-  margin-bottom: 1rem;
-  color: #333;
+.chat-window .emoji {
+  font-size: 14px; 
+}
+
+form {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
 }
 
 input {
-  width: 100%;
-  margin-top: 10px;
-  padding: 12px;
+  flex-grow: 1;
+  padding: 10px;
+  border-radius: 5px;
   border: 1px solid #ddd;
-  border-radius: 6px;
   outline: none;
-  font-size: 14px;
+  margin-right: 10px;
 }
 
 button {
-  margin-top: 20px;
-  width: 100%;
-  padding: 12px;
+  padding: 10px 20px;
   background-color: #3498db;
   color: white;
   border: none;
@@ -158,23 +143,4 @@ button {
 button:hover {
   background-color: #2980b9;
 }
-
-form {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-}
-
-.switch-link {
-  text-align: center;
-  margin-top: 10px;
-  color: #3498db;
-  cursor: pointer;
-  font-size: 14px;
-}
-
-.switch-link:hover {
-  text-decoration: underline;
-}
 </style>
-

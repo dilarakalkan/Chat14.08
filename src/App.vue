@@ -5,16 +5,20 @@
       <Sidebar v-if="user" class="sidebar" />
       <div class="main-content">
         <router-view />
+        <!-- WebSocket bileşenini ekliyoruz -->
+        <WebSocket />
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref,computed, onMounted } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import Sidebar from './components/Sidebar.vue';
 import Navbar from './components/Navbar.vue';
+import WebSocket from './components/WebSocket.vue';
+
 
 const user = ref(null);
 const router = useRouter();
@@ -29,8 +33,6 @@ onMounted(() => {
     router.push('/auth');
   }
 });
-
-
 </script>
 
 <style scoped>
@@ -67,7 +69,6 @@ body, html {
   flex-grow: 1;
   overflow: hidden;
 }
-
 
 .main-content {
   flex-grow: 1;

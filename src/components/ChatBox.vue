@@ -30,7 +30,7 @@ export default {
   },
   data() {
     return {
-      // ws: null, // WebSocket bağlantısı şimdilik devre dışı
+      ws: null, // WebSocket bağlantısı
       text: '',
       messages: [],
       chats: [
@@ -43,26 +43,27 @@ export default {
     };
   },
   created() {
-    // this.connectToWebSocket(); // WebSocket bağlantısını şimdilik devre dışı
+    // this.connectToWebSocket(); // WebSocket bağlantısını oluşturma kısmı devre dışı
   },
   methods: {
     connectToWebSocket() {
-      // WebSocket bağlantısını geçici olarak yorum satırına alıyoruz
-      // this.ws = new WebSocket('ws://localhost:8085/ws');
-      // this.ws.onmessage = (event) => {
-      //   const message = JSON.parse(event.data);
-      //   const chat = this.chats.find(chat => chat.id === message.chatId);
-      //   if (chat) {
-      //     chat.messages.push(message);
-      //     if (chat.id === this.selectedChatId) {
-      //       this.messages.push(message);
-      //     }
-      //   }
-      // };
+      // WebSocket bağlantısını başlat
+      this.ws = new WebSocket('ws://localhost:8085/ws');
 
-      // this.ws.onerror = (error) => {
-      //   console.error('WebSocket Error: ', error);
-      // };
+      this.ws.onmessage = (event) => {
+        const message = JSON.parse(event.data);
+        const chat = this.chats.find(chat => chat.id === message.chatId);
+        if (chat) {
+          chat.messages.push(message);
+          if (chat.id === this.selectedChatId) {
+            this.messages.push(message);
+          }
+        }
+      };
+
+      this.ws.onerror = (error) => {
+        console.error('WebSocket Error: ', error);
+      };
     },
     onSubmit() {
       if (this.text !== '' && this.selectedChatId) {
@@ -71,7 +72,7 @@ export default {
           content: this.text,
           chatId: this.selectedChatId, // chatId'yi ekledik
         };
-        // this.ws.send(JSON.stringify(chatMessage)); // Mesaj gönderme şimdilik devre dışı
+        // this.ws.send(JSON.stringify(chatMessage)); // Mesaj gönderme kısmı devre dışı
         this.text = '';
       }
     },
@@ -88,3 +89,43 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+}
+
+.chat-box {
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+form {
+  display: flex;
+  margin-top: 10px;
+}
+
+input {
+  flex-grow: 1;
+  padding: 10px;
+  margin-right: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+button {
+  padding: 10px 20px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+</style>
