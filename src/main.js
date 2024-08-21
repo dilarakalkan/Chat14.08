@@ -4,15 +4,11 @@ import router from './router';
 import store from './store';
 import '@fortawesome/fontawesome-free/css/all.css';
 import { Quasar } from 'quasar'
-import quasarLang from 'quasar/lang/en-US' // Tercihinize göre dil paketi
-import 'quasar/dist/quasar.css' // Quasar'ın ana stil dosyası
+import quasarUserOptions from './quasar-user-options'
 
 
-const app = createApp(App);
-app.use(Quasar, {
-    plugins: {}, // Eğer Quasar pluginleri kullanacaksanız burada belirtin
-    lang: quasarLang,
-  })
+const app = createApp(App).use(Quasar, quasarUserOptions);
+
 
 
 app.use(store);

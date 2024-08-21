@@ -1,5 +1,4 @@
 <template>
-  <q-page>
     <div class="app-container">
       <div class="chat-window">
         <div id="chat" class="messages">
@@ -15,7 +14,6 @@
       </div>
     </div>
     
-  </q-page>
 </template>
 
 <script setup>
