@@ -1,80 +1,89 @@
 <template>
-    <nav  class="navbar">
-      <ul class="navbar-menu">
-        <li><a href="#">About</a></li>
-      </ul>
-      <div class="navbar-buttons">
-        <button class="login-btn">Login</button>
-        <button class="signup-btn">Sign-up</button>
-      </div>
-    </nav>
-  </template>
-  
-  <script>
-  export default {
-    name: 'Navbar'
-  };
-  </script>
-  
-  <style scoped>
-  .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    background-color: white;
-    border-bottom: 1px solid #e5e5e5;
+  <q-toolbar class="navbar" elevated>
+    <q-toolbar-title>
+      <q-btn
+        flat
+        icon="home"
+        label="Home"
+        to="/"
+        class="navbar-home-btn"
+      />
+    </q-toolbar-title>
+
+    <q-space />
+
+    <div class="navbar-buttons">
+      
+      <q-btn
+        push
+        unelevated
+        color="secondary"
+        icon-right="person_add"
+        label="Log out"
+        @click="onSignupClick"
+        class="navbar-btn signup-btn"
+      />
+    </div>
+  </q-toolbar>
+</template>
+
+<script>
+export default {
+  name: 'Navbar',
+  methods: {
+    onLoginClick() {
+     
+    },
   }
-  
-  .navbar-menu {
-    list-style-type: none;
-    display: flex;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .navbar-menu li {
-    margin-right: 20px;
-  }
-  
-  .navbar-menu li a {
-    text-decoration: none;
-    color: #007bff;
-    font-weight: bold;
-  }
-  
-  .navbar-menu li a:hover {
-    color: #0056b3;
-  }
-  
-  .navbar-buttons {
-    display: flex;
-    align-items: center;
-  }
-  
-  .login-btn,
-  .signup-btn {
-    border: 1px solid #007bff;
-    background-color: transparent;
-    color: #007bff;
-    padding: 5px 10px;
-    margin-right: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-  }
-  
-  .signup-btn {
-    background-color: #007bff;
-    color: white;
-  }
-  
-  .login-btn:hover {
-    background-color: #e6f2ff;
-  }
-  
-  .signup-btn:hover {
-    background-color: #0056b3;
-  }
-  </style>
-  
+};
+</script>
+
+<style scoped>
+.navbar {
+  background: linear-gradient(90deg, rgba(58,123,213,1) 0%, rgba(58,213,143,1) 100%);
+  border-bottom: 2px solid rgba(58,213,143,1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  padding: 10px 20px;
+}
+
+.navbar-home-btn {
+  font-weight: bold;
+  color: white;
+  font-size: 1.25rem;
+  text-transform: uppercase;
+}
+
+.navbar-buttons .navbar-btn {
+  font-weight: bold;
+  margin-left: 15px;
+  padding: 10px 20px;
+  border-radius: 4px; /* Köşeler keskinleştirildi */
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.navbar-buttons .navbar-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.signup-btn {
+  background-color: #ff5722;
+  color: white;
+  border-radius: 4px; /* Köşeler keskinleştirildi */
+}
+
+.signup-btn:hover {
+  background-color: #e64a19;
+}
+
+.q-toolbar-title {
+  font-size: 1.75rem;
+  font-weight: bold;
+  color: white;
+}
+
+.q-space {
+  flex-grow: 1;
+}
+</style>

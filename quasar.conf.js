@@ -57,7 +57,14 @@ module.exports = function (/* ctx */) {
         // (https://quasar.dev/quasar-cli/treeshaking)
         all: 'auto',
   
-        components: [],
+        components: [
+
+
+
+
+
+          
+        ],
         directives: [],
   
         // Quasar plugins

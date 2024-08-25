@@ -19,7 +19,6 @@ import Sidebar from './components/Sidebar.vue';
 import Navbar from './components/Navbar.vue';
 import WebSocket from './components/WebSocket.vue';
 
-
 const user = ref(null);
 const router = useRouter();
 const isAuthenticated = computed(() => !!user.value);
@@ -48,9 +47,6 @@ body, html {
   height: 100%;
   margin: 0;
   padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .app-container {
@@ -70,12 +66,19 @@ body, html {
   overflow: hidden;
 }
 
+.sidebar {
+  flex: 0 0 250px; /* Sidebar genişliği */
+  height: 100vh;
+  background-color: #34495e; /* Sidebar arka plan rengi */
+  color: white;
+  border-right: 1px solid #ddd;
+  overflow-y: auto;
+}
+
 .main-content {
   flex-grow: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   padding: 20px;
   overflow: auto;
+  background-color: #ecf0f1; /* Ana içerik arka plan rengi */
 }
 </style>

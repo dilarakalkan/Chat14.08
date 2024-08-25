@@ -5,8 +5,7 @@
         </div>
         <form @submit.prevent="sendMessage">
           <input v-model="message" placeholder="Type your message..." />
-          <button type="submit">Send </button>  
-          <q-btn label="quasarbtn" color="red" ></q-btn>
+          <q-btn label="Send" color="red" ></q-btn>
           <button type="button" @click="disconnect">Disconnect</button>
           <button type="button" @click="logout">çıkış</button>
         
