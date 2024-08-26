@@ -58,14 +58,22 @@ module.exports = function (/* ctx */) {
         all: 'auto',
   
         components: [
-
-
-
-
-
+          
+        
+          'QToolbar',
+          'QToolbarTitle',
+          'QList',
+          'QItem',
+          'QItemSection',
+          'QItemLabel',
+          'QAvatar',
+          'QIcon',
+          'QSeparator'
           
         ],
-        directives: [],
+        directives: [
+          'Ripple'
+        ],
   
         // Quasar plugins
         plugins: []

@@ -8,6 +8,7 @@ import ContactPage from '@/views/ContactPage.vue';
 import SettingsPage from '@/views/SettingsPage.vue';
 import WebSocket from '../components/WebSocket.vue';
 
+
 const routes = [
   { path: '/', name: 'Home', component: HomePage },
   { 

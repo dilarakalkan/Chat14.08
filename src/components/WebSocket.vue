@@ -19,7 +19,7 @@ const stompClient = ref(null);
 const message = ref('');
 
 const connect = () => {
-const socket = new SockJS('/http://localhost:808/websocket');
+const socket = new SockJS('/http://localhost:8083/websocket');
 stompClient.value = Stomp.over(socket);
 
 stompClient.value.connect({}, (frame) => {

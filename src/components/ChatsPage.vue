@@ -1,18 +1,24 @@
 <template>
-    <div class="app-container">
+  <div class="app-container">
+    <!-- Ana kapsayıcıyı flex olarak ayarlıyoruz -->
+    <div class="chat-container">
+      <!-- Chat Penceresi -->
+       
       <div class="chat-window">
-        <div id="chat" class="messages">
-        </div>
+        <div id="chat" class="messages"></div>
+        
         <form @submit.prevent="sendMessage">
           <input v-model="message" placeholder="Type your message..." />
           <q-btn label="Send" color="red" ></q-btn>
           <button type="button" @click="disconnect">Disconnect</button>
           <button type="button" @click="logout">çıkış</button>
-        
         </form>
       </div>
+      
+      <!-- ChatsUser bileşenini buraya ekliyoruz -->
+      <ChatsUser />
     </div>
-    
+  </div>
 </template>
 
 <script setup>
@@ -20,6 +26,7 @@ import { ref, onMounted, onBeforeUnmount } from 'vue';
 import SockJS from 'sockjs-client';
 import { Stomp } from '@stomp/stompjs';
 import { useRouter } from 'vue-router';
+import ChatsUser from '@/components/ChatsUser.vue'; // ChatsUser bileşenini içe aktarın
 
 const stompClient = ref(null);
 const message = ref('');
@@ -37,11 +44,13 @@ const connect = () => {
     });
   });
 };
-const logout = ()=>{
-  localStorage.removeItem("user")
-  localStorage.removeItem("user-token")
-  router.go("/auth")
-}
+
+const logout = () => {
+  localStorage.removeItem("user");
+  localStorage.removeItem("user-token");
+  router.go("/auth");
+};
+
 const disconnect = () => {
   if (stompClient.value) {
     stompClient.value.disconnect();
@@ -73,7 +82,6 @@ onMounted(() => {
 onBeforeUnmount(() => {
   disconnect();
 });
-
 </script>
 
 <style scoped>
@@ -83,6 +91,48 @@ html, body {
   margin: 0;
   padding: 0;
 }
+.q-page .chat-window {
+  flex-grow: 1;
+  margin-right: 20px; /* Sağdaki bileşenden önce soldaki bileşene yer bırakıyoruz */
+  height: 80vh;
+  background: #34495e;
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  box-sizing: border-box;
+}
+
+.q-page .messages {
+  flex-grow: 1;
+  overflow-y: auto;
+  width: 100%;
+  background-color: #2c3e50;
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.q-page form {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 10px; /* Elemanlar arasında boşluk ekliyoruz */
+  margin-top: auto; /* Formun chat penceresinin altına sabitlenmesini sağlıyoruz */
+}
+
+.q-page .q-input-target {
+  flex-grow: 1; /* Input alanının butonlardan daha geniş olmasını sağlıyoruz */
+}
+
+.q-page button, 
+.q-page .q-btn {
+  flex-shrink: 0; /* Butonların genişliklerinin sabitlenmesini sağlıyoruz */
+  white-space: nowrap; /* Butonlarda taşma olmaması için */
+}
 
 .app-container {
   width: 100%;
@@ -90,18 +140,28 @@ html, body {
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 20px;
+}
+
+.chat-container {
+  display: flex; /* Flexbox düzenini etkinleştiriyoruz */
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 1200px; /* Maksimum genişliği ayarlıyoruz */
 }
 
 .chat-window {
-  width: 400px;
-  height: 80vh; 
+  flex-grow: 1;
+  margin-right: 20px; /* Sağdaki bileşenden önce soldaki bileşene yer bırakıyoruz */
+  height: 80vh;
   background: #34495e;
   color: white;
   padding: 20px;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start; 
+  justify-content: flex-start;
   align-items: flex-start;
   box-sizing: border-box;
 }
@@ -117,7 +177,7 @@ html, body {
 }
 
 .chat-window .emoji {
-  font-size: 14px; 
+  font-size: 14px;
 }
 
 form {
