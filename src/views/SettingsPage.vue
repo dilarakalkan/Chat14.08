@@ -1,7 +1,8 @@
 <template>
   <div class="settings-page">
     <h1>Settings</h1>
-    <p>Adjust your preferences and account settings here.</p>
+    <p>
+      Tercihlerinizi ve hesap ayarlarınızı buradan düzenleyin.</p>
   </div>
 </template>
 

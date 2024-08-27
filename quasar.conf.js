@@ -68,7 +68,16 @@ module.exports = function (/* ctx */) {
           'QItemLabel',
           'QAvatar',
           'QIcon',
-          'QSeparator'
+          'QSeparator',
+          'QPage',        // Ana sayfa kapsayıcısı için
+          'QHeader',      // Üst menü için
+          'QFooter',      // Alt menü ve profil bilgisi için
+          'QBtn',         // Butonlar için
+          'QInput',       // Mesaj giriş alanı için
+          'QForm',        // Form yapısı için
+          'QCard',        // Alt profili ve aksiyonları düzenlemek için
+          'QCardSection', // Kart içerisindeki bölümler için
+          'QAvatar'
           
         ],
         directives: [

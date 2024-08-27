@@ -1,11 +1,10 @@
 <template>
   <div class="contact-page">
     <h1>Contact Us</h1>
-    <p>Feel free to reach out to us via the following methods:</p>
     <ul>
-      <li>Email: contact@company.com</li>
-      <li>Phone: (123) 456-7890</li>
-      <li>Address: 123 Main Street, Anytown, USA</li>
+      <li>Email: dilara@company.com</li>
+      <li>Phone: 534 698 88 52</li>
+      <li>Address: Yenimahalle,Ankara ,Türkiye</li>
     </ul>
   </div>
 </template>

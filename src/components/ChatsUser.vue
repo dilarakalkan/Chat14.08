@@ -50,34 +50,28 @@
   const contacts = [ {
     id: 1,
     name: 'ozan',
-    email: 'ozan@gmail.com',
     letter: 'O'
   }, {
     id: 2,
-    name: 'Evşen',
-    email: 'evsen@gmail.com',
-    letter: 'E'
+    name: 'ali',
+    letter: 'A'
   }, {
     id: 3,
     name: 'bahar',
-    email: 'bahar@gmail.com',
     letter: 'B'
   }, {
     id: 4,
     name: 'nur',
-    email: 'nur@gmail.com',
     letter: 'N'
   } ]
   
   const offline = [ {
     id: 5,
     name: 'Fatma',
-    email: 'fatma@gmail.com',
     avatar: 'avatar2.jpg'
   }, {
     id: 6,
     name: 'Zeynep',
-    email: 'zeynep@gmail.com',
     avatar: 'avatar6.jpg'
   } ]
   

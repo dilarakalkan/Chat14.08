@@ -13,35 +13,38 @@
     <q-space />
 
     <div class="navbar-buttons">
-      
-      <q-btn
-        push
-        unelevated
-        color="secondary"
-        icon-right="person_add"
-        label="Log out"
-        @click="onSignupClick"
-        class="navbar-btn signup-btn"
-      />
+      <!-- Logout butonuna logout fonksiyonunu bağlayın -->
+      <q-btn label="Logout" color="negative" @click="logout" />
     </div>
   </q-toolbar>
 </template>
 
 <script>
+import { useRouter } from 'vue-router';
+
 export default {
   name: 'Navbar',
-  methods: {
-    onLoginClick() {
-     
-    },
-  }
+  setup() {
+    const router = useRouter();
+    
+    // Logout fonksiyonunu ekleyin
+    const logout = () => {
+      localStorage.removeItem("user");
+      localStorage.removeItem("user-token");
+      router.push("/auth");
+    };
+
+    return {
+      logout
+    };
+  },
 };
 </script>
 
 <style scoped>
 .navbar {
-  background: linear-gradient(90deg, rgba(58,123,213,1) 0%, rgba(58,213,143,1) 100%);
-  border-bottom: 2px solid rgba(58,213,143,1);
+  background: linear-gradient(90deg, rgba(58,123,213,1) 0%, rgb(119, 181, 202) 100%);
+  border-bottom: 2px solid rgb(103, 193, 246);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   padding: 10px 20px;
 }
@@ -74,7 +77,7 @@ export default {
 }
 
 .signup-btn:hover {
-  background-color: #e64a19;
+  background-color: #dce619;
 }
 
 .q-toolbar-title {
