@@ -13,10 +13,6 @@
 
     <q-space />
 
-    <div class="navbar-buttons">
-      <!-- Logout butonuna logout fonksiyonunu bağlayın -->
-      <q-btn label="Logout" color="negative" @click="logout" />
-    </div>
   </q-toolbar>
 </template>
 
@@ -26,18 +22,7 @@ import { useRouter } from 'vue-router';
 export default {
   name: 'Navbar',
   setup() {
-    const router = useRouter();
-    
-    // Logout fonksiyonunu ekleyin
-    const logout = () => {
-      localStorage.removeItem("user");
-      localStorage.removeItem("user-token");
-      router.push("/auth");
-    };
-
-    return {
-      logout
-    };
+ 
   },
 };
 </script>

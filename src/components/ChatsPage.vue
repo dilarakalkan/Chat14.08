@@ -38,12 +38,6 @@ const sendMessage = () => {
 };
 
 
-const logout = () => {
-  localStorage.removeItem("user");
-  localStorage.removeItem("user-token");
-  router.push("/auth");
-};
-
 const disconnect = () => {
   console.log('Disconnected');
 };

@@ -31,21 +31,21 @@
           <q-list>
 
             <template v-for="(menuItem, index) in menuList" :key="index">
-              <q-item clickable :active="menuItem.label === 'Outbox'" v-ripple>
-                <q-item-section avatarü>
-                  <q-icon :name="menuItem.icon" />
-                </q-item-section>
-                <q-item-section>
-                  {{ menuItem.label }}
-                </q-item-section>
-              </q-item>
-              <q-separator :key="'sep' + index"  v-if="menuItem.separator" />
-            </template>
+  <q-item clickable @click="navigateTo(menuItem.route)" :active="isActiveRoute(menuItem.route)" v-ripple>
+    <q-item-section avatar>
+      <q-icon :name="menuItem.icon" />
+    </q-item-section>
+    <q-item-section>
+      {{ menuItem.label }}
+    </q-item-section>
+  </q-item>
+  <q-separator :key="'sep' + index" v-if="menuItem.separator" />
+</template>
+            
 
           </q-list>
         </q-scroll-area>
       </q-drawer>
-
       <q-page-container>
         <KeepAlive>
         <q-page padding>
@@ -60,40 +60,69 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue';
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 import Sidebar from './components/Sidebar.vue';
 import Navbar from './components/Navbar.vue';
 import WebSocket from './components/WebSocket.vue';
 
 const user = ref(null);
 const router = useRouter();
+const route = useRoute();  // Route değişkenini tanımladık
+
 const isAuthenticated = computed(() => !!user.value);
+
 const menuList = [
   {
     icon: 'home',
     label: 'Home',
+    route: 'Home',
     separator: true
   },
   {
     icon: 'team',
     label: 'Team',
+    route: 'Team',
     separator: false
   },
-  
   {
     icon: 'settings',
     label: 'Settings',
+    route: 'Settings',  // "router" yerine "route" olarak düzelttik
     separator: false
   },
-  
   {
     icon: 'contact',
-    iconColor: 'primary',
     label: 'Contact',
+    route: 'Contact',  // "router" yerine "route" olarak düzelttik
     separator: false
   }
-]
-const drawer = ref(false)
+];
+
+const drawer = ref(false);
+
+function navigateTo(page) {
+  drawer.value = false; // Navigasyon sonrası çekmeceyi kapatır
+  router.push({ name: page });
+}
+
+function isActiveRoute(routeName) {
+  return route.name === routeName;
+}
+
+// Logout fonksiyonunu ekleyin
+const logout = () => {
+  localStorage.removeItem("user");
+  localStorage.removeItem("user-token");
+  router.push("/auth");
+};
+
+
+
+
+
+
+
+
 // Sayfa yenilendiğinde kullanıcının oturum bilgilerini kontrol edin
 onMounted(() => {
   const storedUser = localStorage.getItem('user');
@@ -140,7 +169,7 @@ body, html {
 .sidebar {
   flex: 0 0 250px; /* Sidebar genişliği */
   height: 100vh;
-  background-color: #8ce558; /* Sidebar arka plan rengi */
+  background-color: #58e589; /* Sidebar arka plan rengi */
   color: white;
   border-right: 1px solid #ddd;
   overflow-y: auto;
