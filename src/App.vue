@@ -79,10 +79,11 @@ const menuList = [
     separator: true
   },
   {
-    icon: 'team',
+    icon: 'group',
     label: 'Team',
     route: 'Team',
     separator: false
+    
   },
   {
     icon: 'settings',
@@ -91,7 +92,7 @@ const menuList = [
     separator: false
   },
   {
-    icon: 'contact',
+    icon: 'contact_mail',
     label: 'Contact',
     route: 'Contact',  // "router" yerine "route" olarak düzelttik
     separator: false
@@ -115,11 +116,6 @@ const logout = () => {
   localStorage.removeItem("user-token");
   router.push("/auth");
 };
-
-
-
-
-
 
 
 

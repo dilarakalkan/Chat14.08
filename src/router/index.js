@@ -27,7 +27,9 @@ const routes = [
   { path: '/contact', name: 'Contact', component: ContactPage, meta: { requiresAuth: true } },
   { path: '/websocket', name: 'WebSocket', component: WebSocket, meta: { requiresAuth: true } },
   { path: '/settings', name: 'Settings', component: SettingsPage, meta: { requiresAuth: true } },
-  { path: '/chatuser/:userId', name: 'ChatUser',component: ChatsUser, meta: { requiresAuth: true } 
+  
+  { path: '/chatuser/:userId', name: 'ChatUser',component: ChatsUser, meta: { requiresAuth: true }
+
   },
 ];
 

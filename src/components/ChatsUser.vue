@@ -60,8 +60,6 @@
       </q-list>
     </div>
 
-    
-
     <div class="chat-content">
       <div class="chat-window">
         <div class="chat-header">
@@ -75,6 +73,7 @@
             v-for="(message, index) in messages"
             :key="index"
             :name="message.name"
+             avatar="https://cdn.quasar.dev/img/avatar2.jpg"
             :text="message.text"
             :sent="message.sent"
           />
