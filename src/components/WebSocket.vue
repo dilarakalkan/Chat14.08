@@ -1,63 +1,79 @@
 <template>
-  <q-page>
-<div class="app-container">
-  <div class="chat-window">
-    <div id="chat" class="messages">
-    </div>
-  </div>
-</div>
-</q-page>
-
+ 
 </template>
 
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from 'vue';
-import SockJS from 'sockjs-client';
-import { CompatClient, Stomp } from '@stomp/stompjs';
+// import SockJS from 'sockjs-client';
+// import { Stomp } from '@stomp/stompjs';
 
-const stompClient = ref(null);
+// STOMP Client ve mesajları tutacak reaktif değişkenler
+// const stompClient = ref(null);
 const message = ref('');
+const messages = ref([]);
 
+// WebSocket bağlantısını kurma fonksiyonu
+/*
 const connect = () => {
-const socket = new SockJS('/http://localhost:8083/websocket');
-stompClient.value = Stomp.over(socket);
+  stompClient.value = Stomp.over(() => new SockJS('http://localhost:8083/websocket'));
 
-stompClient.value.connect({}, (frame) => {
-  console.log('Connected: ' + frame);
-  stompClient.value.subscribe('/topic/chat', (message) => {
-    showMessage(JSON.parse(message.body).content);
+  stompClient.value.connect({}, (frame) => {
+    console.log('Connected: ' + frame);
+    stompClient.value.subscribe('/topic/chat', (msg) => {
+      showMessage(JSON.parse(msg.body).content);
+    });
+  }, (error) => {
+    console.error('WebSocket connection error:', error);
   });
-});
 };
+*/
 
+// WebSocket bağlantısını kesme fonksiyonu
+/*
 const disconnect = () => {
-if (stompClient.value) {
-  stompClient.value.disconnect();
-}
-console.log('Disconnected');
+  if (stompClient.value) {
+    stompClient.value.disconnect(() => {
+      console.log('Disconnected');
+    });
+  }
 };
+*/
 
+// Mesaj gönderme fonksiyonu
 const sendMessage = () => {
-if (message.value && stompClient.value && stompClient.value.connected) {
-  stompClient.value.send('/app/chat', {}, JSON.stringify({ content: message.value }));
-  message.value = '';
-} else {
-  console.error('WebSocket connection is not established.');
-}
+  /*
+  if (stompClient.value && stompClient.value.connected && message.value.trim() !== '') {
+    stompClient.value.send('/app/chat', {}, JSON.stringify({ content: message.value }));
+    showMessage(message.value);  // Gönderilen mesajı hemen göster
+    message.value = '';  // Mesaj alanını temizle
+  } else {
+    console.error('WebSocket connection is not established or message is empty.');
+  }
+  */
+  // Without WebSocket, you might simply push the message to the array:
+  if (message.value.trim() !== '') {
+    showMessage(message.value);
+    message.value = '';
+  }
 };
 
+// Gelen mesajları ekranda göstermek için
 const showMessage = (msg) => {
-const chatDiv = document.getElementById('chat');
-const p = document.createElement('p');
-p.appendChild(document.createTextNode(msg));
-chatDiv.appendChild(p);
+  messages.value.push(msg);  // Mesajı array'e ekle
 };
 
+// Component yüklendiğinde WebSocket bağlantısını kur
+/*
 onMounted(() => {
-connect();
+  connect();
 });
+*/
 
+// Component kaldırılmadan önce WebSocket bağlantısını kes
+/*
 onBeforeUnmount(() => {
-disconnect();
+  disconnect();
 });
+*/
 </script>
+

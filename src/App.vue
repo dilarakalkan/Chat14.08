@@ -1,15 +1,61 @@
 <template>
-  <div id="app" class="app-container">
+  <!--<div id="app" class="app-container">
     <Navbar v-if="isAuthenticated" class="navbar" />
     <div class="content-container">
       <Sidebar v-if="user" class="sidebar" />
       <div class="main-content">
         <router-view />
-        <!-- WebSocket bileşenini ekliyoruz -->
         <WebSocket />
       </div>
     </div>
-  </div>
+  </div>-->
+ 
+  <q-layout view="hHh lpR fFf">
+      <q-header elevated :class="$q.dark.isActive ? 'bg-secondary' : 'bg-black'">
+        <q-toolbar>
+          <q-btn flat @click="drawer = !drawer" round dense icon="menu" />
+          <q-toolbar-title>CHATSAPP</q-toolbar-title>
+        </q-toolbar>
+        <q-btn label="Logout" color="negative" @click="logout" class="logout-btn" />
+      </q-header>
+
+      <q-drawer
+        v-model="drawer"
+        show-if-above
+        :width="200"
+        :breakpoint="500"
+        bordered
+        :class="$q.dark.isActive ? 'bg-grey-9' : 'bg-grey-3'"
+      >
+        <q-scroll-area class="fit">
+          <q-list>
+
+            <template v-for="(menuItem, index) in menuList" :key="index">
+              <q-item clickable :active="menuItem.label === 'Outbox'" v-ripple>
+                <q-item-section avatarü>
+                  <q-icon :name="menuItem.icon" />
+                </q-item-section>
+                <q-item-section>
+                  {{ menuItem.label }}
+                </q-item-section>
+              </q-item>
+              <q-separator :key="'sep' + index"  v-if="menuItem.separator" />
+            </template>
+
+          </q-list>
+        </q-scroll-area>
+      </q-drawer>
+
+      <q-page-container>
+        <KeepAlive>
+        <q-page padding>
+          <router-view />
+        <WebSocket />
+        
+        </q-page>
+        </KeepAlive>
+      </q-page-container>
+    </q-layout>
 </template>
 
 <script setup>
@@ -22,7 +68,32 @@ import WebSocket from './components/WebSocket.vue';
 const user = ref(null);
 const router = useRouter();
 const isAuthenticated = computed(() => !!user.value);
-
+const menuList = [
+  {
+    icon: 'home',
+    label: 'Home',
+    separator: true
+  },
+  {
+    icon: 'team',
+    label: 'Team',
+    separator: false
+  },
+  
+  {
+    icon: 'settings',
+    label: 'Settings',
+    separator: false
+  },
+  
+  {
+    icon: 'contact',
+    iconColor: 'primary',
+    label: 'Contact',
+    separator: false
+  }
+]
+const drawer = ref(false)
 // Sayfa yenilendiğinde kullanıcının oturum bilgilerini kontrol edin
 onMounted(() => {
   const storedUser = localStorage.getItem('user');
@@ -69,7 +140,7 @@ body, html {
 .sidebar {
   flex: 0 0 250px; /* Sidebar genişliği */
   height: 100vh;
-  background-color: #34495e; /* Sidebar arka plan rengi */
+  background-color: #8ce558; /* Sidebar arka plan rengi */
   color: white;
   border-right: 1px solid #ddd;
   overflow-y: auto;

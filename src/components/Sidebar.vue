@@ -9,6 +9,7 @@
   </div>
     </div>
     
+    
     <b-nav vertical class="sidebar-nav">
       <b-nav-item 
         @click="navigateTo('Home')" 
@@ -16,12 +17,7 @@
       >
         <i class="fas fa-home"></i> Home
       </b-nav-item>
-      <b-nav-item 
-        @click="navigateTo('About')" 
-        :class="['sidebar-item', { active: isActiveRoute('About') }]"
-      >
-        <i class="fas fa-info-circle"></i> About
-      </b-nav-item>
+
       <b-nav-item 
         @click="navigateTo('Team')" 
         :class="['sidebar-item', { active: isActiveRoute('Team') }]"
@@ -53,7 +49,7 @@ const route = useRoute();
 const isSidebarOpen = ref(true);
 
 function navigateTo(page) {
-  isSidebarOpen.value = false; // Navigasyon sonrası sidebar'ı kapatır (Mobil için)
+  isSidebarOpen.value = false; // Navigasyon sonrası sidebar'ı kapatır 
   router.push({ name: page });
 }
 
