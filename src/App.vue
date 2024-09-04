@@ -1,14 +1,4 @@
 <template>
-  <!--<div id="app" class="app-container">
-    <Navbar v-if="isAuthenticated" class="navbar" />
-    <div class="content-container">
-      <Sidebar v-if="user" class="sidebar" />
-      <div class="main-content">
-        <router-view />
-        <WebSocket />
-      </div>
-    </div>
-  </div>-->
  
   <q-layout view="hHh lpR fFf">
       <q-header elevated :class="$q.dark.isActive ? 'bg-secondary' : 'bg-black'">
@@ -41,8 +31,7 @@
   </q-item>
   <q-separator :key="'sep' + index" v-if="menuItem.separator" />
 </template>
-            
-
+          
           </q-list>
         </q-scroll-area>
       </q-drawer>
@@ -50,8 +39,6 @@
         <KeepAlive>
         <q-page padding>
           <router-view />
-        <WebSocket />
-        
         </q-page>
         </KeepAlive>
       </q-page-container>
@@ -61,13 +48,12 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
-import Sidebar from './components/Sidebar.vue';
-import Navbar from './components/Navbar.vue';
-import WebSocket from './components/WebSocket.vue';
+import { io } from 'socket.io-client'; // Socket.IO istemciyi içe aktarma için ekledim
+
 
 const user = ref(null);
 const router = useRouter();
-const route = useRoute();  // Route değişkenini tanımladık
+const route = useRoute();  
 
 const isAuthenticated = computed(() => !!user.value);
 

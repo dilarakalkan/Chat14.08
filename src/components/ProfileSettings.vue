@@ -63,7 +63,7 @@
   const profileImage = ref('https://cdn.pixabay.com/photo/2017/06/13/12/53/profile-2398782_960_720.png');
   const userName = ref('Dilara');
   const about = ref('Bu benim hakkımda alanım.');
-  const phoneNumber = ref('+90 534 677 88 72');
+  const phoneNumber = ref('+90 534 617 94 72');
   
   const uploadPhoto = () => {
     // Fotoğraf yükleme işlemi

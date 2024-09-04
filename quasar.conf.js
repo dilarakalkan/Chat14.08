@@ -76,9 +76,9 @@ module.exports = function (/* ctx */) {
           'QInput',       // Mesaj giriş alanı için
           'QForm',        // Form yapısı için
           'QCard',        // Alt profili ve aksiyonları düzenlemek için
-          'Notify',
           'QCardSection', // Kart içerisindeki bölümler için
-          'QAvatar'
+          'QAvatar',
+           'Notify'
           
         ],
         directives: [

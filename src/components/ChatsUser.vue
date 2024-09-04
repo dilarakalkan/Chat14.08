@@ -91,11 +91,6 @@
           <q-btn round dense flat icon="send" @click="sendMessage" />
           <q-btn label="Disconnect" color="primary" @click="disconnect" />
 
-
-          
-          
-          
-
       
         </div>
       </div>
@@ -115,7 +110,10 @@ export default {
 
     const contacts = [
       { id: 'ali', name: 'Ali', letter: 'A', email: 'ali@example.com' },
-      { id: 'medipol', name: 'Medipol 4.sınıf', letter: 'M', email: 'medipol@example.com' }
+      { id: 'medipol',
+       name: 'Medipol 4.sınıf',
+        letter: 'M',
+         email: 'medipol@example.com' }
     ];
 
     const offline = [

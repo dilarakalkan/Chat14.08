@@ -12,8 +12,11 @@
     "@stomp/stompjs": "^7.0.0",
     "axios": "^1.7.3",
     "core-js": "^3.8.3",
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
     "quasar": "^2.16.9",
-    "sockjs-client": "^1.6.1",
+    "socket.io": "^4.7.5",
+    "socket.io-client": "^4.7.5",
     "veaury": "^2.4.2",
     "vue": "^3.2.13",
     "vue-chat-engine": "^0.0.7",
@@ -26,5 +29,10 @@
     "@vue/cli-plugin-vuex": "~5.0.0",
     "@vue/cli-service": "~5.0.0",
     "vue-cli-plugin-quasar": "~5.1.0"
-  }
+  },
+  "description": "## Project setup ``` npm install ```",
+  "main": "babel.config.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }

@@ -5,7 +5,6 @@ import Register from '@/views/auth/Register.vue';
 import TeamPage from '@/views/TeamPage.vue';
 import ContactPage from '@/views/ContactPage.vue';
 import SettingsPage from '@/views/SettingsPage.vue';
-import WebSocket from '../components/WebSocket.vue';
 import ChatsUser from '@/components/ChatsUser.vue';
 
 
@@ -25,7 +24,6 @@ const routes = [
   },
   { path: '/team', name: 'Team', component: TeamPage, meta: { requiresAuth: true } },
   { path: '/contact', name: 'Contact', component: ContactPage, meta: { requiresAuth: true } },
-  { path: '/websocket', name: 'WebSocket', component: WebSocket, meta: { requiresAuth: true } },
   { path: '/settings', name: 'Settings', component: SettingsPage, meta: { requiresAuth: true } },
   
   { path: '/chatuser/:userId', name: 'ChatUser',component: ChatsUser, meta: { requiresAuth: true }

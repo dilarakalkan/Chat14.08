@@ -30,7 +30,6 @@ export default {
   },
   data() {
     return {
-      ws: null, // WebSocket bağlantısı
       text: '',
       messages: [],
       chats: [
@@ -42,29 +41,7 @@ export default {
       username: 'a', // Güncel kullanıcı adınızı girin
     };
   },
-  created() {
-    // this.connectToWebSocket(); // WebSocket bağlantısını oluşturma kısmı devre dışı
-  },
   methods: {
-    connectToWebSocket() {
-      // WebSocket bağlantısını başlat
-      this.ws = new WebSocket('ws://localhost:8085/ws');
-
-      this.ws.onmessage = (event) => {
-        const message = JSON.parse(event.data);
-        const chat = this.chats.find(chat => chat.id === message.chatId);
-        if (chat) {
-          chat.messages.push(message);
-          if (chat.id === this.selectedChatId) {
-            this.messages.push(message);
-          }
-        }
-      };
-
-      this.ws.onerror = (error) => {
-        console.error('WebSocket Error: ', error);
-      };
-    },
     onSubmit() {
       if (this.text !== '' && this.selectedChatId) {
         const chatMessage = {
@@ -72,7 +49,7 @@ export default {
           content: this.text,
           chatId: this.selectedChatId, // chatId'yi ekledik
         };
-        // this.ws.send(JSON.stringify(chatMessage)); // Mesaj gönderme kısmı devre dışı
+        // Mesaj gönderme işlemleri burada yapılabilir
         this.text = '';
       }
     },
@@ -82,13 +59,9 @@ export default {
       this.messages = selectedChat ? selectedChat.messages : [];
     },
   },
-  beforeDestroy() {
-    // if (this.ws) {
-    //   this.ws.close();
-    // }
-  },
 };
 </script>
+
 
 <style scoped>
 .chat-container {
