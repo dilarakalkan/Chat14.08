@@ -48,7 +48,7 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
-import { io } from 'socket.io-client'; // Socket.IO istemciyi içe aktarma için ekledim
+
 
 
 const user = ref(null);
@@ -83,6 +83,7 @@ const menuList = [
     route: 'Contact',  // "router" yerine "route" olarak düzelttik
     separator: false
   }
+  
 ];
 
 const drawer = ref(false);

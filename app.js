@@ -1,34 +1,35 @@
+const express = require('express');
+const http = require('http');
+const { Server } = require("socket.io");
 
-const appJs = ()=>{
-    const socketio = require("socket.io");
-    const express = require('express');
-    const http = require('http');
-    const app = express();
-    const PORT=process.env.PORT ||8083
-    
-    const server = http.createServer(app);
-    const io = new Server(server, {
-      cors: {
-        origin: "*",  // Vue.js istemcisinin çalıştığı adres
-        methods: ["GET", "POST","OPTIONS"]
-      },
-    });
-    
-    //olayı dinlemek istediğimizde on ,tetiklemek istediğimizde emit
-    server.listen(8083, () => {
-        io.on('connection', socket => {
-            console.log("Bir kullanıcı sunucuya bağlandı")
-            console.log(socket.id);
-            socket.emit("WELCOME,MESSAGE",'hosgeldin ${}')
-     
-    })
-      }); 
-    
-      console.log('Socket ${PORT} üzerinde çalışıyor');
-    return{
-       
-        
-    }
-}
-export default appJs
+const app = express();
+const PORT = process.env.PORT || 3000;
 
+const server = http.createServer(app);
+const io = new Server(server, {
+  cors: {
+    origin: "*",  
+    methods: ["GET", "POST","OPTIONS"]
+  }
+});
+
+io.on('connection', (socket) => {
+  console.log("Bir kullanıcı bağlandı: ", socket.id);
+
+  // Kullanıcı bağlandığında hoşgeldin mesajı gönder
+  socket.emit("WELCOME,MESSAGE", `Hoşgeldin, Kullanıcı ID: ${socket.id}`);
+
+  // chatMessage olayını dinle ve diğer kullanıcılara gönder
+  socket.on("chatMessage", (msg) => {
+    console.log("Mesaj alındı: ", msg);
+    io.emit("chatMessage", msg);  // Tüm bağlı kullanıcılara mesajı gönder
+  });
+
+  socket.on('disconnect', () => {
+    console.log("Bir kullanıcı bağlantıyı kesti");
+  });
+});
+
+server.listen(3000, () => {
+  console.log(`Socket.IO sunucusu ${PORT} üzerinde çalışıyor`);
+});

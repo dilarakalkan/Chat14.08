@@ -37,7 +37,7 @@
   
   <style scoped>
   .chat-list {
-    background-color: blue;
+    background-color: rgb(57, 198, 41);
     color: white;
     padding: 10px;
   }

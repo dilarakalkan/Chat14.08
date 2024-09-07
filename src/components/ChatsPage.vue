@@ -14,8 +14,7 @@
         </div>
         
         <!-- We remove the right container (chat-window) -->
-         
-        
+     
       </q-page>
     </q-page-container>
   </q-layout>
@@ -104,6 +103,7 @@ html, body {
   justify-content: space-between;
 
 }
+
 
 .contacts-container {
   width: 75%; 
