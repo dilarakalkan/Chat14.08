@@ -4,7 +4,6 @@
     <q-tabs v-model="selectedTab" class="text-primary" align="left">
       <q-tab name="profile" label="Profile" icon="person" />
       <q-tab name="privacy" label="Privacy" icon="lock" />
-      <q-tab name="notifications" label="Notifications" icon="notifications" />
     </q-tabs>
 
     <q-separator />

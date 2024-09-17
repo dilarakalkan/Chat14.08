@@ -1,55 +1,58 @@
 <template>
- 
   <q-layout view="hHh lpR fFf">
-      <q-header elevated :class="$q.dark.isActive ? 'bg-secondary' : 'bg-black'">
-        <q-toolbar>
-          <q-btn flat @click="drawer = !drawer" round dense icon="menu" />
-          <q-toolbar-title>CHATSAPP</q-toolbar-title>
-        </q-toolbar>
-        <q-btn label="Logout" color="negative" @click="logout" class="logout-btn" />
-      </q-header>
+    <q-header elevated :class="$q.dark.isActive ? 'bg-secondary' : 'bg-black'">
+      
+      <q-toolbar>
+        <q-btn flat @click="drawer = !drawer" round dense icon="menu" />
+        <q-toolbar-title>CHATSAPP</q-toolbar-title>
+        <q-space /> <!-- Bu eleman Logout butonunu sağa taşır -->
+        <q-btn label="Logout" color="blue" @click="logout" class="logout-btn" />
+      </q-toolbar>
+    </q-header>
 
-      <q-drawer
-        v-model="drawer"
-        show-if-above
-        :width="200"
-        :breakpoint="500"
-        bordered
-        :class="$q.dark.isActive ? 'bg-grey-9' : 'bg-grey-3'"
-      >
-        <q-scroll-area class="fit">
-          <q-list>
+    <q-drawer
+      v-model="drawer"
+      show-if-above
+      :width="200"
+      :breakpoint="500"
+      bordered
+      :class="$q.dark.isActive ? 'bg-grey-9' : 'bg-grey-3'"
+    >
+      <q-scroll-area class="fit">
+        <q-list>
+          <template v-for="(menuItem, index) in menuList" :key="index">
+            <q-item
+              clickable
+              @click="navigateTo(menuItem.route)"
+              :active="isActiveRoute(menuItem.route)"
+              v-ripple
+            >
+              <q-item-section avatar>
+                <q-icon :name="menuItem.icon" />
+              </q-item-section>
+              <q-item-section>
+                {{ menuItem.label }}
+              </q-item-section>
+            </q-item>
+            <q-separator :key="'sep' + index" v-if="menuItem.separator" />
+          </template>
+        </q-list>
+      </q-scroll-area>
+    </q-drawer>
 
-            <template v-for="(menuItem, index) in menuList" :key="index">
-  <q-item clickable @click="navigateTo(menuItem.route)" :active="isActiveRoute(menuItem.route)" v-ripple>
-    <q-item-section avatar>
-      <q-icon :name="menuItem.icon" />
-    </q-item-section>
-    <q-item-section>
-      {{ menuItem.label }}
-    </q-item-section>
-  </q-item>
-  <q-separator :key="'sep' + index" v-if="menuItem.separator" />
-</template>
-          
-          </q-list>
-        </q-scroll-area>
-      </q-drawer>
-      <q-page-container>
-        <KeepAlive>
+    <q-page-container>
+      <KeepAlive>
         <q-page padding>
           <router-view />
         </q-page>
-        </KeepAlive>
-      </q-page-container>
-    </q-layout>
+      </KeepAlive>
+    </q-page-container>
+  </q-layout>
 </template>
 
 <script setup>
 import { ref, computed, onMounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
-
-
 
 const user = ref(null);
 const router = useRouter();
@@ -69,21 +72,19 @@ const menuList = [
     label: 'Team',
     route: 'Team',
     separator: false
-    
   },
   {
     icon: 'settings',
     label: 'Settings',
-    route: 'Settings',  // "router" yerine "route" olarak düzelttik
+    route: 'Settings',
     separator: false
   },
   {
     icon: 'contact_mail',
     label: 'Contact',
-    route: 'Contact',  // "router" yerine "route" olarak düzelttik
+    route: 'Contact',
     separator: false
   }
-  
 ];
 
 const drawer = ref(false);
@@ -103,8 +104,6 @@ const logout = () => {
   localStorage.removeItem("user-token");
   router.push("/auth");
 };
-
-
 
 // Sayfa yenilendiğinde kullanıcının oturum bilgilerini kontrol edin
 onMounted(() => {
@@ -150,9 +149,9 @@ body, html {
 }
 
 .sidebar {
-  flex: 0 0 250px; /* Sidebar genişliği */
+  flex: 0 0 250px;
   height: 100vh;
-  background-color: #58e589; /* Sidebar arka plan rengi */
+  background-color: #58e589;
   color: white;
   border-right: 1px solid #ddd;
   overflow-y: auto;
@@ -162,6 +161,8 @@ body, html {
   flex-grow: 1;
   padding: 20px;
   overflow: auto;
-  background-color: #ecf0f1; /* Ana içerik arka plan rengi */
+  background-color: #ecf0f1;
 }
+
+
 </style>

@@ -82,7 +82,7 @@
     <div class="chat-content">
       <div class="chat-window">
         <div class="chat-header">
-          <h5>{{ selectedUserName || 'ChatApp' }}</h5>
+          <h6>{{ selectedUserName || 'ChatApp' }}</h6>
         </div>
 
         <q-card-section class="text-center">Yesterday</q-card-section>
@@ -96,6 +96,7 @@
               avatar="https://cdn.quasar.dev/img/avatar2.jpg"
               :text="message.text"
               :sent="message.sent"
+              
             />
           </keep-alive>
         </div>
@@ -200,57 +201,123 @@ export default {
 .chat-app-container {
   display: flex;
   height: 100vh;
+  width: 100%;
+  background-color: #f5f5f5;
 }
 
 .contacts-container {
   width: 30%;
-  padding: 10px;
-  background-color: #f5f5f5;
-  border-right: 1px solid #ddd;
+  background-color: #fff;
+  border-right: 1px solid #e0e0e0;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+
+.q-toolbar {
+  background-color: #3f51b5;
 }
 
 .chat-content {
-  width: 70%; /* Adjusted to maintain proportional width */
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-}
-
-.chat-window {
+  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 100%;
-  background-color: white;
+  background-color: #e9e9ef;
+  padding: 0;
+}
+
+.chat-window {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  overflow-y: auto;
+  background-color: #fff;
   border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .chat-header {
+  padding: 16px;
   background-color: #3f51b5;
   color: white;
-  padding: 10px;
-  text-align: center;
   border-radius: 8px 8px 0 0;
+  text-align: center;
 }
 
 .messages {
-  flex-grow: 1;
+  flex: 1;
+  margin: 16px 0;
   overflow-y: auto;
-  padding: 10px;
 }
 
 .chat-footer {
-  background-color: #3f51b5;
-  color: white;
-  padding: 10px;
-  border-radius: 0 0 8px 8px;
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  background-color: #f7f7f7;
+  border-top: 1px solid #ddd;
+}
+
+.q-input {
+  flex: 1;
+  margin-right: 8px;
+}
+
+.q-btn {
+  margin-left: 8px;
+}
+
+.q-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0 16px;
+}
+
+.q-item {
+  border-radius: 8px;
+  padding: 12px;
+  transition: background-color 0.3s ease;
+}
+
+.q-item:hover {
+  background-color: #e0e0e0;
+}
+
+.q-avatar {
+  width: 48px;
+  height: 48px;
+}
+
+.q-item-section[side] {
   display: flex;
   align-items: center;
 }
 
-.chat-footer q-input {
-  flex-grow: 1;
+.q-separator {
+  margin: 16px 0;
 }
+
+.q-item-label[header] {
+  color: #9e9e9e;
+  font-weight: bold;
+}
+
+.chat-footer .q-btn {
+  background-color: #3f51b5;
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .contacts-container {
+    width: 100%;
+    height: 50%;
+  }
+
+  .chat-content {
+    height: 50%;
+  }
+}
+
 </style>
