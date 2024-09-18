@@ -118,16 +118,23 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref ,onMounted,onBeforeUnmount} from "vue";
+import Socket from "./Socket.vue";
+
+import { io } from 'socket.io-client';
 
 export default {
+  components: {
+    Socket, 
+  },
   setup() {
-    const selectedUser = ref(null);
+    const selectedUser = ref();
     const selectedUserName = ref("");
     const messages = ref([]);
     const messageInput = ref("");
+    const socket = io('ws://localhost:3000');
 
-    // Unique avatars for each contact
+    
     const contacts = [
       { id: "ali", name: "Ali", avatar: "avatar1.jpg" },
       { id: "medipol", name: "Medipol 4.sınıf", avatar: "avatar5.jpg" }
@@ -145,7 +152,7 @@ export default {
         messages.value = [
           { name: "Me", text: ["Merhaba"], sent: true },
           { name: "Ali", text: ["merhaba?"] },
-          { name: "Ali", text: ["nasılsın?"] }
+     
         ];
       } else if (userId === "medipol") {
         selectedUserName.value = "Medipol 4.sınıf";
@@ -162,8 +169,17 @@ export default {
       }
     };
 
+ // Mesaj gönderme fonksiyonu
     const sendMessage = () => {
+      console.log("Here!");
+      debugger;
       if (messageInput.value !== "") {
+        // Mesajı Socket.IO sunucusuna gönder
+        socket.emit("message", {
+      name: "Me",
+      text: messageInput.value
+    });
+
         messages.value.push({
           name: "Me",
           text: [messageInput.value],
@@ -172,6 +188,7 @@ export default {
         messageInput.value = "";
       }
     };
+    
 
     const addNewChat = () => {
       console.log("New chat button clicked");
@@ -180,6 +197,26 @@ export default {
     const disconnect = () => {
       console.log("Disconnected");
     };
+
+    onMounted(() => {
+      socket.value = io("ws://localhost:3000"); // Sunucu adresini belirleyin
+
+      // Gelen mesajları dinle
+      socket.value.on("message", (message) => {
+        messages.value.push({
+          name: message.name,
+          text: message.text,
+          sent: false
+        });
+      });
+    });
+
+
+    onBeforeUnmount(() => {
+      if (socket.value) {
+        socket.value.disconnect();
+      }
+    });
 
     return {
       contacts,

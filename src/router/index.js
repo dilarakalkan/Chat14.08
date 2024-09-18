@@ -6,6 +6,7 @@ import TeamPage from '@/views/TeamPage.vue';
 import ContactPage from '@/views/ContactPage.vue';
 import SettingsPage from '@/views/SettingsPage.vue';
 import ChatsUser from '@/components/ChatsUser.vue';
+
 import Socket from '@/components/Socket.vue';
 
 
@@ -19,14 +20,11 @@ const routes = [
   },
   { 
     path: '/auth', name: 'Auth', component: AuthPage, meta: { requiresAuth: false },
-    children: [
-      { path: 'register', name: 'Register', component: Register }
-    ]
+    children: [{ path: 'register', name: 'Register', component: Register }]
   },
   { path: '/team', name: 'Team', component: TeamPage, meta: { requiresAuth: true } },
   { path: '/contact', name: 'Contact', component: ContactPage, meta: { requiresAuth: true } },
   { path: '/settings', name: 'Settings', component: SettingsPage, meta: { requiresAuth: true } },
-  
   { path: '/chatuser/:userId', name: 'ChatUser',component: ChatsUser, meta: { requiresAuth: true } },
    // Socket yönlendirmesi burada eklenir
    { path: '/socket', name: 'Socket', component: Socket, meta: { requiresAuth: true } }

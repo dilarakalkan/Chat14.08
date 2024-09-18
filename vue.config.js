@@ -5,7 +5,15 @@ module.exports = defineConfig({
   ],
 
   devServer:{
-    proxy: 'http://localhost:8083'
+
+    proxy: {
+    '/socket.io': {
+    target:'http://localhost:8083',
+    
+    ws: true, // Enable WebSocket proxying
+    changeOrigin: true,
+    }
+  }
   },
 
   pluginOptions: {

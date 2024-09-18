@@ -12,8 +12,7 @@
           <ChatsUser @selectUser="selectUser" />
           </KeepAlive>
         </div>
-        
-        <!-- We remove the right container (chat-window) -->
+      
      
       </q-page>
     </q-page-container>
